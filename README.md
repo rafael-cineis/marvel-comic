@@ -1,1 +1,1 @@
-# marvel-comic
+# marvel-comics
