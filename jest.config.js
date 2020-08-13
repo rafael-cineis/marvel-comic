@@ -25,7 +25,7 @@ module.exports = {
     '<rootDir>/internals/testing/test-bundler.js',
     'react-testing-library/cleanup-after-each',
   ],
-  setupFiles: ['raf/polyfill'],
+  setupFiles: ['raf/polyfill', '<rootDir>/enzyme.config.js'],
   testRegex: 'tests/.*\\.test\\.js$',
   snapshotSerializers: [],
 }
