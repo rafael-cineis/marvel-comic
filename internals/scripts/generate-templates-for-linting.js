@@ -6,34 +6,34 @@
  * 'rbgen' extension so it can be easily excluded from the test coverage reports.
  */
 
-const chalk = require('chalk');
-const fs = require('fs');
-const nodePlop = require('node-plop');
-const path = require('path');
-const rimraf = require('rimraf');
-const shell = require('shelljs');
+const chalk = require('chalk')
+const fs = require('fs')
+const nodePlop = require('node-plop')
+const path = require('path')
+const rimraf = require('rimraf')
+const shell = require('shelljs')
 
-const addCheckmark = require('./helpers/checkmark');
-const xmark = require('./helpers/xmark');
-
-/**
- * Every generated component/container is preceded by this
- * @type {string}
- */
-const { BACKUPFILE_EXTENSION } = require('../generators/index');
-
-process.chdir(path.join(__dirname, '../generators'));
-
-const plop = nodePlop('./index.js');
-const componentGen = plop.getGenerator('component');
-const containerGen = plop.getGenerator('container');
-const languageGen = plop.getGenerator('language');
+const addCheckmark = require('./helpers/checkmark')
+const xmark = require('./helpers/xmark')
 
 /**
  * Every generated component/container is preceded by this
  * @type {string}
  */
-const NAMESPACE = 'RbGenerated';
+const { BACKUPFILE_EXTENSION } = require('../generators/index')
+
+process.chdir(path.join(__dirname, '../generators'))
+
+const plop = nodePlop('./index.js')
+const componentGen = plop.getGenerator('component')
+const containerGen = plop.getGenerator('container')
+const languageGen = plop.getGenerator('language')
+
+/**
+ * Every generated component/container is preceded by this
+ * @type {string}
+ */
+const NAMESPACE = 'RbGenerated'
 
 /**
  * Return a prettified string
@@ -41,7 +41,7 @@ const NAMESPACE = 'RbGenerated';
  * @returns {string}
  */
 function prettyStringify(data) {
-  return JSON.stringify(data, null, 2);
+  return JSON.stringify(data, null, 2)
 }
 
 /**
@@ -53,11 +53,11 @@ function prettyStringify(data) {
 function handleResult({ changes, failures }) {
   return new Promise((resolve, reject) => {
     if (Array.isArray(failures) && failures.length > 0) {
-      reject(new Error(prettyStringify(failures)));
+      reject(new Error(prettyStringify(failures)))
     }
 
-    resolve(changes);
-  });
+    resolve(changes)
+  })
 }
 
 /**
@@ -66,10 +66,10 @@ function handleResult({ changes, failures }) {
  * @returns {Function}
  */
 function feedbackToUser(info) {
-  return result => {
-    console.info(chalk.blue(info));
-    return result;
-  };
+  return (result) => {
+    console.info(chalk.blue(info))
+    return result
+  }
 }
 
 /**
@@ -78,10 +78,10 @@ function feedbackToUser(info) {
  * @returns {Function}
  */
 function reportSuccess(message) {
-  return result => {
-    addCheckmark(() => console.log(chalk.green(` ${message}`)));
-    return result;
-  };
+  return (result) => {
+    addCheckmark(() => console.log(chalk.green(` ${message}`)))
+    return result
+  }
 }
 
 /**
@@ -91,8 +91,8 @@ function reportSuccess(message) {
  */
 function reportErrors(reason) {
   // TODO Replace with our own helpers/log that is guaranteed to be blocking?
-  xmark(() => console.error(chalk.red(` ${reason}`)));
-  process.exit(1);
+  xmark(() => console.error(chalk.red(` ${reason}`)))
+  process.exit(1)
 }
 
 /**
@@ -107,12 +107,11 @@ function runLintingOnDirectory(relativePath) {
       {
         silent: true,
       },
-      code =>
-        code
-          ? reject(new Error(`Linting error(s) in ${relativePath}`))
-          : resolve(relativePath),
-    );
-  });
+      code => code
+        ? reject(new Error(`Linting error(s) in ${relativePath}`))
+        : resolve(relativePath),
+    )
+  })
 }
 
 /**
@@ -127,15 +126,15 @@ function runLintingOnFile(filePath) {
       {
         silent: true,
       },
-      code => {
+      (code) => {
         if (code) {
-          reject(new Error(`Linting errors in ${filePath}`));
+          reject(new Error(`Linting errors in ${filePath}`))
         } else {
-          resolve(filePath);
+          resolve(filePath)
         }
       },
-    );
-  });
+    )
+  })
 }
 
 /**
@@ -146,14 +145,14 @@ function runLintingOnFile(filePath) {
 function removeDir(relativePath) {
   return new Promise((resolve, reject) => {
     try {
-      rimraf(path.join(__dirname, '/../../app/', relativePath), err => {
-        if (err) throw err;
-      });
-      resolve(relativePath);
+      rimraf(path.join(__dirname, '/../../app/', relativePath), (err) => {
+        if (err) throw err
+      })
+      resolve(relativePath)
     } catch (err) {
-      reject(err);
+      reject(err)
     }
-  });
+  })
 }
 
 /**
@@ -164,14 +163,14 @@ function removeDir(relativePath) {
 function removeFile(filePath) {
   return new Promise((resolve, reject) => {
     try {
-      fs.unlink(filePath, err => {
-        if (err) throw err;
-      });
-      resolve(filePath);
+      fs.unlink(filePath, (err) => {
+        if (err) throw err
+      })
+      resolve(filePath)
     } catch (err) {
-      reject(err);
+      reject(err)
     }
-  });
+  })
 }
 
 /**
@@ -185,16 +184,16 @@ async function restoreModifiedFile(
   backupFileExtension = BACKUPFILE_EXTENSION,
 ) {
   return new Promise((resolve, reject) => {
-    const targetFile = filePath.replace(`.${backupFileExtension}`, '');
+    const targetFile = filePath.replace(`.${backupFileExtension}`, '')
     try {
-      fs.copyFile(filePath, targetFile, err => {
-        if (err) throw err;
-      });
-      resolve(targetFile);
+      fs.copyFile(filePath, targetFile, (err) => {
+        if (err) throw err
+      })
+      resolve(targetFile)
     } catch (err) {
-      reject(err);
+      reject(err)
     }
-  });
+  })
 }
 
 /**
@@ -204,10 +203,10 @@ async function restoreModifiedFile(
  * @returns {Promise<string>} - Relative path to the generated component
  */
 async function generateComponent({ name, memo }) {
-  const targetFolder = 'components';
-  const componentName = `${NAMESPACE}Component${name}`;
-  const relativePath = `${targetFolder}/${componentName}`;
-  const component = `component/${memo ? 'Pure' : 'NotPure'}`;
+  const targetFolder = 'components'
+  const componentName = `${NAMESPACE}Component${name}`
+  const relativePath = `${targetFolder}/${componentName}`
+  const component = `component/${memo ? 'Pure' : 'NotPure'}`
 
   await componentGen
     .runActions({
@@ -218,15 +217,15 @@ async function generateComponent({ name, memo }) {
     })
     .then(handleResult)
     .then(feedbackToUser(`Generated '${component}'`))
-    .catch(reason => reportErrors(reason));
+    .catch(reason => reportErrors(reason))
   await runLintingOnDirectory(relativePath)
     .then(reportSuccess(`Linting test passed for '${component}'`))
-    .catch(reason => reportErrors(reason));
+    .catch(reason => reportErrors(reason))
   await removeDir(relativePath)
     .then(feedbackToUser(`Cleanup '${component}'`))
-    .catch(reason => reportErrors(reason));
+    .catch(reason => reportErrors(reason))
 
-  return component;
+  return component
 }
 
 /**
@@ -236,10 +235,10 @@ async function generateComponent({ name, memo }) {
  * @returns {Promise<string>} - Relative path to the generated container
  */
 async function generateContainer({ name, memo }) {
-  const targetFolder = 'containers';
-  const componentName = `${NAMESPACE}Container${name}`;
-  const relativePath = `${targetFolder}/${componentName}`;
-  const container = `container/${memo ? 'Pure' : 'NotPure'}`;
+  const targetFolder = 'containers'
+  const componentName = `${NAMESPACE}Container${name}`
+  const relativePath = `${targetFolder}/${componentName}`
+  const container = `container/${memo ? 'Pure' : 'NotPure'}`
 
   await containerGen
     .runActions({
@@ -253,15 +252,15 @@ async function generateContainer({ name, memo }) {
     })
     .then(handleResult)
     .then(feedbackToUser(`Generated '${container}'`))
-    .catch(reason => reportErrors(reason));
+    .catch(reason => reportErrors(reason))
   await runLintingOnDirectory(relativePath)
     .then(reportSuccess(`Linting test passed for '${container}'`))
-    .catch(reason => reportErrors(reason));
+    .catch(reason => reportErrors(reason))
   await removeDir(relativePath)
     .then(feedbackToUser(`Cleanup '${container}'`))
-    .catch(reason => reportErrors(reason));
+    .catch(reason => reportErrors(reason))
 
-  return container;
+  return container
 }
 
 /**
@@ -270,21 +269,21 @@ async function generateContainer({ name, memo }) {
  * @returns {Promise<[string]>}
  */
 async function generateComponents(components) {
-  const promises = components.map(async component => {
-    let result;
+  const promises = components.map(async (component) => {
+    let result
 
     if (component.kind === 'component') {
-      result = await generateComponent(component);
+      result = await generateComponent(component)
     } else if (component.kind === 'container') {
-      result = await generateContainer(component);
+      result = await generateContainer(component)
     }
 
-    return result;
-  });
+    return result
+  })
 
-  const results = await Promise.all(promises);
+  const results = await Promise.all(promises)
 
-  return results;
+  return results
 }
 
 /**
@@ -298,42 +297,39 @@ async function generateLanguage(language) {
     .runActions({ language, test: true })
     .then(handleResult)
     .then(feedbackToUser(`Added new language: '${language}'`))
-    .then(changes =>
-      changes.reduce((acc, change) => {
-        const pathWithRemovedAnsiEscapeCodes = change.path.replace(
-          /* eslint-disable-next-line no-control-regex */
-          /(\u001b\[3(?:4|9)m)/g,
-          '',
-        );
-        const obj = {};
-        obj[pathWithRemovedAnsiEscapeCodes] = change.type;
-        return Object.assign(acc, obj);
-      }, {}),
-    )
-    .catch(reason => reportErrors(reason));
+    .then(changes => changes.reduce((acc, change) => {
+      const pathWithRemovedAnsiEscapeCodes = change.path.replace(
+        /* eslint-disable-next-line no-control-regex */
+        /(\u001b\[3(?:4|9)m)/g,
+        '',
+      )
+      const obj = {}
+      obj[pathWithRemovedAnsiEscapeCodes] = change.type
+      return Object.assign(acc, obj)
+    }, {}),)
+    .catch(reason => reportErrors(reason))
 
   // Run eslint on modified and added JS files
   const lintingTasks = Object.keys(generatedFiles)
     .filter(
-      filePath =>
-        generatedFiles[filePath] === 'modify' ||
-        generatedFiles[filePath] === 'add',
+      filePath => generatedFiles[filePath] === 'modify'
+        || generatedFiles[filePath] === 'add',
     )
     .filter(filePath => filePath.endsWith('.js'))
-    .map(async filePath => {
+    .map(async (filePath) => {
       const result = await runLintingOnFile(filePath)
         .then(reportSuccess(`Linting test passed for '${filePath}'`))
-        .catch(reason => reportErrors(reason));
+        .catch(reason => reportErrors(reason))
 
-      return result;
-    });
+      return result
+    })
 
-  await Promise.all(lintingTasks);
+  await Promise.all(lintingTasks)
 
   // Restore modified files
   const restoreTasks = Object.keys(generatedFiles)
     .filter(filePath => generatedFiles[filePath] === 'backup')
-    .map(async filePath => {
+    .map(async (filePath) => {
       const result = await restoreModifiedFile(filePath)
         .then(
           feedbackToUser(
@@ -343,31 +339,30 @@ async function generateLanguage(language) {
             )}'`,
           ),
         )
-        .catch(reason => reportErrors(reason));
+        .catch(reason => reportErrors(reason))
 
-      return result;
-    });
+      return result
+    })
 
-  await Promise.all(restoreTasks);
+  await Promise.all(restoreTasks)
 
   // Remove backup files and added files
   const removalTasks = Object.keys(generatedFiles)
     .filter(
-      filePath =>
-        generatedFiles[filePath] === 'backup' ||
-        generatedFiles[filePath] === 'add',
+      filePath => generatedFiles[filePath] === 'backup'
+        || generatedFiles[filePath] === 'add',
     )
-    .map(async filePath => {
+    .map(async (filePath) => {
       const result = await removeFile(filePath)
         .then(feedbackToUser(`Removed '${filePath}'`))
-        .catch(reason => reportErrors(reason));
+        .catch(reason => reportErrors(reason))
 
-      return result;
-    });
+      return result
+    })
 
-  await Promise.all(removalTasks);
+  await Promise.all(removalTasks)
 
-  return language;
+  return language
 }
 
 /**
@@ -379,7 +374,7 @@ async function generateLanguage(language) {
     { kind: 'component', name: 'MemoizedComponent', memo: true },
     { kind: 'container', name: 'Container', memo: false },
     { kind: 'container', name: 'MemoizedContainer', memo: true },
-  ]).catch(reason => reportErrors(reason));
+  ]).catch(reason => reportErrors(reason))
 
-  await generateLanguage('fr').catch(reason => reportErrors(reason));
-})();
+  await generateLanguage('fr').catch(reason => reportErrors(reason))
+}())
