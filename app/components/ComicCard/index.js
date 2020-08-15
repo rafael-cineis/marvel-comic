@@ -7,6 +7,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { COMIC_DETAILS_PATH } from 'containers/App/urls'
+import StyledLink from 'components/StyledLink'
 import Text from 'components/Text'
 
 import { Wrapper } from './styles'
@@ -20,11 +22,17 @@ function ComicCard({
 
   return (
     <Wrapper>
-      <img
-        src={`${thumbnail.path}/portrait_uncanny.${thumbnail.extension}`}
-        alt={title}
-      />
-      <Text bold medium>{title}</Text>
+      <StyledLink
+        to={COMIC_DETAILS_PATH}
+        bold
+        medium
+      >
+        <img
+          src={`${thumbnail.path}/portrait_uncanny.${thumbnail.extension}`}
+          alt={title}
+        />
+        {title}
+      </StyledLink>
       <Text small>
         {creatorsName}
       </Text>

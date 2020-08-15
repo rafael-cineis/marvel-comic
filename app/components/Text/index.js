@@ -7,31 +7,31 @@
 
 import styled, { css } from 'styled-components'
 
-const WhiteText = css`
+export const WhiteText = css`
   color: #fff;
 `
 
-const BoldText = css`
+export const BoldText = css`
   font-weight: bold;
 `
 
-const SemiBoldText = css`
+export const SemiBoldText = css`
   font-weight: 600;
 `
 
-const BigText = css`
+export const BigText = css`
   font-size: 18px;
 `
 
-const MediumText = css`
+export const MediumText = css`
   font-size: 14px;
 `
 
-const SmallText = css`
+export const SmallText = css`
   font-size: 12px;
 `
 
-const UppercaseText = css`
+export const UppercaseText = css`
   text-transform: uppercase;
 `
 
