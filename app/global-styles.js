@@ -8,11 +8,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    background-color: #fafafa;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   body.fontLoaded {
-    font-family 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   #app {
