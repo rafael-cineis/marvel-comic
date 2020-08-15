@@ -10,8 +10,8 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
+import ComicsListPage from 'containers/ComicsListPage'
 import Footer from 'components/Footer'
-import HomePage from 'containers/HomePage/Loadable'
 import NotFoundPage from 'containers/NotFoundPage/Loadable'
 
 import GlobalStyle from '../../global-styles'
@@ -24,7 +24,7 @@ export default function App() {
       {/* Placeholder for Header */}
       <div></div>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={ComicsListPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

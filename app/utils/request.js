@@ -3,6 +3,7 @@ import axios from 'axios'
 const REQUEST_TIMEOUT = 30000
 const PUBLIC_API_KEY = '29582c2c664ce2b7ca3c86533a40a0a1'
 
+/* istanbul ignore next */
 export default function request(url, options) {
   const newOptions = {
     url,
