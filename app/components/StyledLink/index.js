@@ -11,7 +11,10 @@ import { Link } from 'react-router-dom'
 
 import { BoldText, MediumText } from 'components/Text'
 
-const LinkStyled = styled(Link)`
+/* istanbul ignore next */
+const LinkComponent = ({ bold, medium, ...rest }) => <Link {...rest} /> // eslint-disable-line react/prop-types
+
+const StyledLink = styled(LinkComponent)`
   text-decoration: none;
   color: #000;
   ${props => props.bold && BoldText}
@@ -21,18 +24,6 @@ const LinkStyled = styled(Link)`
     color: #eb2328;
   }
 `
-
-function StyledLink(props) {
-  return (
-    <LinkStyled
-      to={props.to}
-      bold={props.bold}
-      medium={props.medium}
-    >
-      {props.children}
-    </LinkStyled>
-  )
-}
 
 StyledLink.propTypes = {
   to: PropTypes.string.isRequired,
