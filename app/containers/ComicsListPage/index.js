@@ -12,6 +12,7 @@ import { compose } from 'redux'
 
 import { useInjectSaga } from 'utils/injectSaga'
 import { useInjectReducer } from 'utils/injectReducer'
+import ComicCard from 'components/ComicCard'
 import ContentWrapper from 'components/ContentWrapper'
 import Loader from 'components/Loader'
 
@@ -22,6 +23,7 @@ import {
 import { fetchComicsList } from './actions'
 import reducer from './reducer'
 import saga from './saga'
+import { ComicsList } from './styles'
 
 export function ComicsListPage(props) {
   useInjectReducer({ key: 'comicsListPage', reducer })
@@ -34,14 +36,19 @@ export function ComicsListPage(props) {
     }
   }, [])
 
-  const renderComicsList = () => props.comicsList.map(({ thumbnail }) => (
-    <div>
-      <img src={`${thumbnail.path}.${thumbnail.extension}`} alt="oi" />
-    </div>
-  ))
+  const renderComicsList = () => (
+    <ComicsList>
+      {props.comicsList.map(comic => (
+        <ComicCard
+          key={comic.id}
+          {...comic}
+        />
+      ))}
+    </ComicsList>
+  )
 
   return (
-    <ContentWrapper>
+    <ContentWrapper main>
       {props.isLoading ? <Loader /> : renderComicsList()}
     </ContentWrapper>
   )

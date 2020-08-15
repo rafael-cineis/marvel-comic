@@ -43,7 +43,6 @@ describe('<ComicsListPage />', () => {
     }
     const renderedComponent = shallowRender(localProps)
     expect(renderedComponent).toBeTruthy()
-    // TODO
-    // expect(renderedComponent.find('ComicCard').length).toEqual(2)
+    expect(renderedComponent.find('ComicCard').length).toEqual(2)
   })
 })

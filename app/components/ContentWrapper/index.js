@@ -1,17 +1,21 @@
+/* istanbul ignore file */
 /**
  *
  * ContentWrapper
  *
  */
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-const ContentWrapper = styled.div`
-  margin: 0 auto;
-  width: 100%;
+const MainContent = css`
   max-width: 1240px;
+  margin: 16px auto;
 `
 
-ContentWrapper.propTypes = {}
+const ContentWrapper = styled.div`
+  width: 100%;
+
+  ${props => props.main && MainContent}
+`
 
 export default ContentWrapper
