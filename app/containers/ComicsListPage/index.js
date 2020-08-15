@@ -12,6 +12,7 @@ import { compose } from 'redux'
 
 import { useInjectSaga } from 'utils/injectSaga'
 import { useInjectReducer } from 'utils/injectReducer'
+import ContentWrapper from 'components/ContentWrapper'
 import Loader from 'components/Loader'
 
 import {
@@ -40,9 +41,9 @@ export function ComicsListPage(props) {
   ))
 
   return (
-    <div>
+    <ContentWrapper>
       {props.isLoading ? <Loader /> : renderComicsList()}
-    </div>
+    </ContentWrapper>
   )
 }
 
