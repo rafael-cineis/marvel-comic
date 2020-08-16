@@ -4,6 +4,7 @@
  *
  */
 import produce from 'immer'
+import { LOCATION_CHANGE } from 'connected-react-router'
 import {
   FETCH_COMIC_DETAILS,
   FETCH_COMIC_DETAILS_SUCCESS,
@@ -35,6 +36,11 @@ const comicDetailsPageReducer = (state = initialState, action) => produce(state,
       draft.comicDetails.isLoading = false
       draft.comicDetails.error = action.error
       draft.comicDetails.result = {}
+      break
+    }
+    /* istanbul ignore next */
+    case LOCATION_CHANGE: {
+      draft.comicDetails = initialState.comicDetails
       break
     }
   }
