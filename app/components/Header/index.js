@@ -6,6 +6,7 @@
 
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import MarvelLogo from 'images/marvelLogo.png'
 
@@ -25,7 +26,9 @@ const HeaderWrapper = styled.div`
 function Header() {
   return (
     <HeaderWrapper>
-      <img src={MarvelLogo} alt="Mavel" />
+      <Link to="/">
+        <img src={MarvelLogo} alt="Mavel" />
+      </Link>
     </HeaderWrapper>
   )
 }
