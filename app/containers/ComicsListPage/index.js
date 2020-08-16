@@ -13,7 +13,6 @@ import { compose } from 'redux'
 import { useInjectSaga } from 'utils/injectSaga'
 import { useInjectReducer } from 'utils/injectReducer'
 import ComicCard from 'components/ComicCard'
-import ContentWrapper from 'components/ContentWrapper'
 import Loader from 'components/Loader'
 
 import {
@@ -47,11 +46,7 @@ export function ComicsListPage(props) {
     </ComicsList>
   )
 
-  return (
-    <ContentWrapper main>
-      {props.isLoading ? <Loader /> : renderComicsList()}
-    </ContentWrapper>
-  )
+  return props.isLoading ? <Loader /> : renderComicsList()
 }
 
 ComicsListPage.propTypes = {

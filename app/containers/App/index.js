@@ -15,6 +15,7 @@ import ComicsListPage from 'containers/ComicsListPage'
 import Footer from 'components/Footer'
 import NotFoundPage from 'containers/NotFoundPage/Loadable'
 
+import ContentWrapper from 'components/ContentWrapper'
 import GlobalStyle from '../../global-styles'
 
 import { AppWrapper } from './styles'
@@ -25,12 +26,17 @@ export default function App() {
     <AppWrapper>
       {/* Placeholder for Header */}
       <div></div>
-      <Switch>
-        <Route exact path="/" component={ComicsListPage} />
-        <Route path={COMIC_DETAILS_PATH} component={ComicDetailsPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+
+      <ContentWrapper main>
+        <Switch>
+          <Route exact path="/" component={ComicsListPage} />
+          <Route path={COMIC_DETAILS_PATH} component={ComicDetailsPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </ContentWrapper>
+
       <Footer />
+
       <GlobalStyle />
     </AppWrapper>
   )
