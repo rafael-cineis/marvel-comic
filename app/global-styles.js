@@ -28,6 +28,15 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5em;
   }
 
+  a {
+    text-decoration: none;
+
+    &:hover {
+      color: #eb2328;
+      text-decoration: underline;
+    }
+  }
+
   .alignCenter {
     text-align: center;
   }

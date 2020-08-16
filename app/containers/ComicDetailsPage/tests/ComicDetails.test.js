@@ -7,7 +7,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { MarvelLink } from '../styles'
 import { ComicDetails } from '../ComicDetails'
 
 describe('<ComicDetails />', () => {
@@ -54,7 +53,7 @@ describe('<ComicDetails />', () => {
     expect(renderedComponent.find('TextWithLabel').length).toEqual(2) // For characters and published date
     // First TextWithLabel refers to publishedDate
     expect(renderedComponent.find('TextWithLabel').at(0).props().text).not.toEqual('')
-    expect(renderedComponent.find(MarvelLink).at(0).props().href).toEqual('https://marvel.com/details-path')
+    expect(renderedComponent.find('a').at(0).props().href).toEqual('https://marvel.com/details-path')
   })
 
   it('should return null if comic prop is empty', () => {
@@ -74,7 +73,7 @@ describe('<ComicDetails />', () => {
       },
     }
     const renderedComponent = shallowRender(localProps)
-    expect(renderedComponent.find(MarvelLink).at(0).props().href).toEqual('another-url')
+    expect(renderedComponent.find('a').at(0).props().href).toEqual('another-url')
   })
 
   it('should render the marvel link with the default marvel url if none is available in the comic details', () => {
@@ -86,7 +85,7 @@ describe('<ComicDetails />', () => {
       },
     }
     const renderedComponent = shallowRender(localProps)
-    expect(renderedComponent.find(MarvelLink).at(0).props().href).toEqual('http://marvel.com')
+    expect(renderedComponent.find('a').at(0).props().href).toEqual('http://marvel.com')
   })
 
   it('should render the component correctly with missing information', () => {
@@ -103,7 +102,7 @@ describe('<ComicDetails />', () => {
     }
     const renderedComponent = shallowRender(localProps)
     expect(renderedComponent).toBeTruthy()
-    // One for MarvelLink and another for missing description
+    // One for marvel link and another for missing description
     expect(renderedComponent.find('FormattedMessage').length).toEqual(2)
     // First TextWithLabel refers to publishedDate
     expect(renderedComponent.find('TextWithLabel').at(0).props().text).toEqual('')

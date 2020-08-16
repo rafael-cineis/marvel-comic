@@ -12,16 +12,18 @@ import { Link } from 'react-router-dom'
 import { BoldText, MediumText } from 'components/Text'
 
 /* istanbul ignore next */
-const LinkComponent = ({ bold, medium, ...rest }) => <Link {...rest} /> // eslint-disable-line react/prop-types
+const LinkComponent = ({
+  bold, medium, black, noDecoration, ...rest // eslint-disable-line react/prop-types
+}) => <Link {...rest} />
 
 const StyledLink = styled(LinkComponent)`
-  text-decoration: none;
-  color: #000;
+  color: ${props => props.black && '#000'};
+
   ${props => props.bold && BoldText}
   ${props => props.medium && MediumText}
 
   &:hover {
-    color: #eb2328;
+    text-decoration: ${props => props.noDecoration ? 'none' : 'underline'};
   }
 `
 

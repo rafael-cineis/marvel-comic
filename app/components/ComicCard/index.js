@@ -28,6 +28,8 @@ function ComicCard({
         to={comicDetailsPath}
         bold
         medium
+        black
+        noDecoration
       >
         <img
           src={`${thumbnail.path}/portrait_uncanny.${thumbnail.extension}`}

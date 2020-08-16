@@ -16,7 +16,6 @@ import {
   Content,
   InfoContainer,
   Title,
-  MarvelLink,
 } from './styles'
 import messages from './messages'
 
@@ -43,12 +42,12 @@ export const ComicDetails = ({ comic, intl }) => {
 
     return (
       <div>
-        <MarvelLink
+        <a
           href={url}
           target="_blank"
         >
           <FormattedMessage {...messages.checkMoreDetailsAtMarvelOfficialPage} />
-        </MarvelLink>
+        </a>
       </div>
     )
   }

@@ -25,4 +25,12 @@ export default defineMessages({
     id: `${scope}.checkMoreDetailsAtMarvel`,
     defaultMessage: 'Veja mais detalhes na página oficial da Marvel',
   },
+  noComicFoundWithId: {
+    id: `${scope}.noComicFoundWithId`,
+    defaultMessage: 'Nenhum quadrinho encontrado com ID fornecido!',
+  },
+  returnToComicsList: {
+    id: `${scope}.returnToComicsList`,
+    defaultMessage: 'Retonar a lista de quadrinhos',
+  },
 })

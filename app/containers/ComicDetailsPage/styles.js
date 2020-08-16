@@ -30,11 +30,3 @@ export const Content = styled.div`
     }
   }
 `
-
-export const MarvelLink = styled.a`
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`
