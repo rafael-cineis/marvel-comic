@@ -13,4 +13,8 @@ export default defineMessages({
     id: `${scope}.loadMore`,
     defaultMessage: 'Carregar mais',
   },
+  searchByCharacterName: {
+    id: `${scope}.searchByCharacterName`,
+    defaultMessage: 'Procurar por Nome de Personagem',
+  },
 })

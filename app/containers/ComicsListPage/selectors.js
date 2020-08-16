@@ -28,3 +28,18 @@ export const makeSelectComicsListPaginationOptions = createSelector(
   selectComicsListState,
   comicsList => comicsList.paginationOptions
 )
+
+export const selectCharactersListState = createSelector(
+  selectComicsListPageDomain,
+  substate => substate.charactersList
+)
+
+export const makeSelectCharactersListCriteria = createSelector(
+  selectCharactersListState,
+  charactersList => charactersList.criteria
+)
+
+export const makeSelectCharactersListResults = createSelector(
+  selectCharactersListState,
+  charactersList => charactersList.results
+)

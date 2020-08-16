@@ -6,16 +6,7 @@ describe('comicsListPageReducer', () => {
   let state
   beforeEach(() => {
     state = {
-      comicsList: {
-        result: [],
-        error: null,
-        isLoading: false,
-        paginationOptions: {
-          total: 0,
-          offset: 0,
-          count: 0,
-        },
-      },
+      ...initialState,
     }
   })
 
@@ -25,6 +16,7 @@ describe('comicsListPageReducer', () => {
 
   it('should handle the fetchComicsList action correctly', () => {
     const expectedResult = {
+      ...state,
       comicsList: {
         ...state.comicsList,
         isLoading: true,
@@ -35,6 +27,7 @@ describe('comicsListPageReducer', () => {
 
   it('should handle the fetchComicsListSuccess action correctly', () => {
     const expectedResult = {
+      ...state,
       comicsList: {
         result: [1, 2],
         isLoading: false,
@@ -58,6 +51,7 @@ describe('comicsListPageReducer', () => {
 
   it('should handle the fetchComicsListFailure action correctly', () => {
     const expectedResult = {
+      ...state,
       comicsList: {
         ...state.comicsList,
         isLoading: false,
@@ -65,5 +59,27 @@ describe('comicsListPageReducer', () => {
       },
     }
     expect(comicsListPageReducer(state, actions.fetchComicsListFailure('error'))).toEqual(expectedResult)
+  })
+
+  it('should handle the fetchCharactersForSearch action correctly', () => {
+    const expectedResult = {
+      ...state,
+      charactersList: {
+        ...state.charactersList,
+        criteria: 'name',
+      },
+    }
+    expect(comicsListPageReducer(state, actions.fetchCharactersForSearch('name'))).toEqual(expectedResult)
+  })
+
+  it('should handle the fetchCharactersForSearchFinished action correctly', () => {
+    const expectedResult = {
+      ...state,
+      charactersList: {
+        ...state.charactersList,
+        results: ['name'],
+      },
+    }
+    expect(comicsListPageReducer(state, actions.fetchCharactersForSearchFinished(['name']))).toEqual(expectedResult)
   })
 })

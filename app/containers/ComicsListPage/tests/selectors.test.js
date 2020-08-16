@@ -4,6 +4,8 @@ import {
   makeSelectComicsListIsLoading,
   makeSelectComicDetailsFromList,
   makeSelectComicsListPaginationOptions,
+  makeSelectCharactersListCriteria,
+  makeSelectCharactersListResults,
 } from '../selectors'
 import { initialState } from '../reducer'
 
@@ -24,6 +26,10 @@ describe('ComicsListPage selectors', () => {
         offset: 0,
         count: 10,
       },
+    },
+    charactersList: {
+      criteria: 'criteria',
+      results: ['name'],
     },
   }
   const mockedState = { comicsListPage }
@@ -57,11 +63,19 @@ describe('ComicsListPage selectors', () => {
     expect(makeSelectComicDetailsFromList(3)(mockedState)).toEqual({})
   })
 
-  it('should select the paginationOptiosn from the comicsList', () => {
+  it('should select the paginationOptions from the comicsList', () => {
     expect(makeSelectComicsListPaginationOptions(mockedState)).toEqual({
       total: 100,
       offset: 0,
       count: 10,
     })
+  })
+
+  it('should select the criteria from the charactersList', () => {
+    expect(makeSelectCharactersListCriteria(mockedState)).toEqual('criteria')
+  })
+
+  it('should select the results from the charactersList', () => {
+    expect(makeSelectCharactersListResults(mockedState)).toEqual(['name'])
   })
 })

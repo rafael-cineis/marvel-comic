@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
@@ -16,6 +16,7 @@ import { useInjectReducer } from 'utils/injectReducer'
 import Button from 'components/Button'
 import ComicCard from 'components/ComicCard'
 import Loader from 'components/Loader'
+import SearchInputButton from 'components/SearchInputButton'
 
 import {
   makeSelectComicsListResult,
@@ -32,6 +33,9 @@ export function ComicsListPage(props) {
   useInjectReducer({ key: 'comicsListPage', reducer })
   useInjectSaga({ key: 'comicsListPage', saga })
 
+  const [searchValue, setSearchValue] = useState()
+  const { options } = props
+
   /* istanbul ignore next */
   useEffect(() => {
     if (!props.comicsList.length) {
@@ -39,19 +43,34 @@ export function ComicsListPage(props) {
     }
   }, [])
 
-  const { options } = props
+  /* istanbul ignore next */
+  const handleLoadMoreClick = () => {
+    props.fetchComicsList(searchValue)
+  }
+
   const renderLoadMoreButton = () => props.isLoading ? <Loader mini /> : (
     <Button
       id="loadMore"
-      onClick={props.fetchComicsList}
+      onClick={handleLoadMoreClick}
       disabled={options.count + options.offset >= options.total}
     >
       <FormattedMessage {...messages.loadMore} />
     </Button>
   )
 
+  /* istanbul ignore next */
+  const handleSearchInputOnClick = (value) => {
+    setSearchValue(value)
+    props.fetchComicsList(value)
+  }
+
   const renderComicsList = () => (
     <Wrapper className="alignCenter">
+      <SearchInputButton
+        label={messages.searchByCharacterName}
+        onClick={handleSearchInputOnClick}
+        initialValue={searchValue}
+      />
       <ComicsList>
         {props.comicsList.map(comic => (
           <ComicCard
@@ -84,8 +103,8 @@ const mapStateToProps = createStructuredSelector({
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    fetchComicsList: () => {
-      dispatch(fetchComicsList())
+    fetchComicsList: (searchCriteria) => {
+      dispatch(fetchComicsList(searchCriteria))
     },
   }
 }

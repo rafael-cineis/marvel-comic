@@ -8,6 +8,8 @@ import {
   FETCH_COMICS_LIST,
   FETCH_COMICS_LIST_SUCCESS,
   FETCH_COMICS_LIST_FAILURE,
+  FETCH_CHARACTERS_FOR_SEARCH,
+  FETCH_CHARACTERS_FOR_SEARCH_FINISHED,
 } from './constants'
 
 export const initialState = {
@@ -20,6 +22,10 @@ export const initialState = {
       offset: 0,
       count: 0,
     },
+  },
+  charactersList: {
+    criteria: undefined,
+    results: [],
   },
 }
 
@@ -45,6 +51,15 @@ const comicsListPageReducer = (state = initialState, action) => produce(state, (
     case FETCH_COMICS_LIST_FAILURE: {
       draft.comicsList.isLoading = false
       draft.comicsList.error = action.error
+      break
+    }
+    case FETCH_CHARACTERS_FOR_SEARCH: {
+      draft.charactersList.criteria = action.criteria
+      draft.comicsList.result = []
+      break
+    }
+    case FETCH_CHARACTERS_FOR_SEARCH_FINISHED: {
+      draft.charactersList.results = action.results
       break
     }
   }
