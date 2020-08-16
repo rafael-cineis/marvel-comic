@@ -25,7 +25,7 @@ import {
 import { fetchComicsList } from './actions'
 import reducer from './reducer'
 import saga from './saga'
-import { ComicsList } from './styles'
+import { ComicsList, Wrapper } from './styles'
 import messages from './messages'
 
 export function ComicsListPage(props) {
@@ -51,7 +51,7 @@ export function ComicsListPage(props) {
   )
 
   const renderComicsList = () => (
-    <div className="alignCenter">
+    <Wrapper className="alignCenter">
       <ComicsList>
         {props.comicsList.map(comic => (
           <ComicCard
@@ -61,7 +61,7 @@ export function ComicsListPage(props) {
         ))}
       </ComicsList>
       {renderLoadMoreButton()}
-    </div>
+    </Wrapper>
   )
 
   return props.isLoading && !props.comicsList.length ? <Loader /> : renderComicsList()
