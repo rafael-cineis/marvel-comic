@@ -3,8 +3,11 @@
   "app.components.TextWithLabel.informationNotAvailable": "Informação não disponível",
   "app.containers.ComicDetailsPage.characters": "Personagens:",
   "app.containers.ComicDetailsPage.checkMoreDetailsAtMarvel": "Veja mais detalhes na página oficial da Marvel",
+  "app.containers.ComicDetailsPage.noComicFoundWithId": "Nenhum quadrinho encontrado com ID fornecido!",
   "app.containers.ComicDetailsPage.noDescriptionAvailable": "Descrição não disponível",
   "app.containers.ComicDetailsPage.publishedDate": "Data de Publicação:",
+  "app.containers.ComicDetailsPage.returnToComicsList": "Retonar a lista de quadrinhos",
   "app.containers.ComicsListPage.loadMore": "Carregar mais",
+  "app.containers.ComicsListPage.searchByCharacterName": "Procurar por Nome de Personagem",
   "app.containers.NotFoundPage.pageNotFound": "Página não foi encontrada!"
 }
