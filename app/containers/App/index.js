@@ -13,6 +13,7 @@ import { Switch, Route } from 'react-router-dom'
 import ComicDetailsPage from 'containers/ComicDetailsPage'
 import ComicsListPage from 'containers/ComicsListPage'
 import Footer from 'components/Footer'
+import Header from 'components/Header'
 import NotFoundPage from 'containers/NotFoundPage/Loadable'
 
 import ContentWrapper from 'components/ContentWrapper'
@@ -24,8 +25,7 @@ import { COMIC_DETAILS_PATH } from './urls'
 export default function App() {
   return (
     <AppWrapper>
-      {/* Placeholder for Header */}
-      <div></div>
+      <Header />
 
       <ContentWrapper main>
         <Switch>
