@@ -14,16 +14,18 @@ import Text from 'components/Text'
 import { Wrapper } from './styles'
 
 function ComicCard({
+  id,
   creators,
   title,
   thumbnail,
 }) {
   const creatorsName = creators.items.map(creator => creator.name).join(', ')
+  const comicDetailsPath = COMIC_DETAILS_PATH.replace(':id', id)
 
   return (
     <Wrapper>
       <StyledLink
-        to={COMIC_DETAILS_PATH}
+        to={comicDetailsPath}
         bold
         medium
       >
@@ -41,6 +43,7 @@ function ComicCard({
 }
 
 ComicCard.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.object.isRequired,
   creators: PropTypes.shape({

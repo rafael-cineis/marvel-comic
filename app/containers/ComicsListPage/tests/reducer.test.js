@@ -1,4 +1,3 @@
-// import produce from 'immer'
 import comicsListPageReducer, { initialState } from '../reducer'
 import * as actions from '../actions'
 

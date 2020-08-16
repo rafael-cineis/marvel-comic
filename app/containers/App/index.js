@@ -10,6 +10,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
+import ComicDetailsPage from 'containers/ComicDetailsPage'
 import ComicsListPage from 'containers/ComicsListPage'
 import Footer from 'components/Footer'
 import NotFoundPage from 'containers/NotFoundPage/Loadable'
@@ -17,6 +18,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable'
 import GlobalStyle from '../../global-styles'
 
 import { AppWrapper } from './styles'
+import { COMIC_DETAILS_PATH } from './urls'
 
 export default function App() {
   return (
@@ -25,6 +27,7 @@ export default function App() {
       <div></div>
       <Switch>
         <Route exact path="/" component={ComicsListPage} />
+        <Route path={COMIC_DETAILS_PATH} component={ComicDetailsPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

@@ -17,3 +17,9 @@ export const makeSelectComicsListIsLoading = createSelector(
   selectComicsListState,
   comicsList => comicsList.isLoading
 )
+
+// Found comic with provided ID from the comic list loaded
+export const makeSelectComicDetailsFromList = id => createSelector(
+  makeSelectComicsListResult,
+  comicsList => comicsList.find(comic => comic.id === parseInt(id, 10)) || {}
+)
