@@ -26,7 +26,6 @@ export function* fetchComicsList() {
   }
 }
 
-/* istanbul ignore next */
 export default function* comicsListPageSaga() {
   yield all([
     takeLatest(FETCH_COMICS_LIST, fetchComicsList),

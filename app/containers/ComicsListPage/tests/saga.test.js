@@ -4,55 +4,69 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { call, put } from 'redux-saga/effects'
+import sagaHelper from 'redux-saga-testing'
 
 import { COMICS_LIST_API } from 'containers/App/urls'
 import request from 'utils/request'
 
 import * as actions from '../actions'
-import { fetchComicsList } from '../saga'
-
+import comicsListPageSaga, { fetchComicsList } from '../saga'
 
 describe('comicsListPageSaga Saga', () => {
   describe('fetchComicsList', () => {
     describe('success scenario', () => {
-      const generator = fetchComicsList()
-      it('should call api', () => {
-        expect(generator.next().value).toEqual(call(request, COMICS_LIST_API, {
+      const it = sagaHelper(fetchComicsList())
+      const response = { response: 'response' }
+
+      it('should call api', (result) => {
+        expect(result).toEqual(call(request, COMICS_LIST_API, {
           method: 'GET',
           params: {
             limit: 10,
           },
         }))
+        return response
       })
 
-      it('should put successful action', () => {
-        const response = { response: 'response' }
-        expect(generator.next(response).value).toEqual(put(actions.fetchComicsListSuccess(response)))
+      it('should put successful action', (result) => {
+        expect(result).toEqual(put(actions.fetchComicsListSuccess(response)))
       })
 
-      it('should end', () => {
-        expect(generator.next().done).toBeTruthy()
+      it('should end', (result) => {
+        expect(result).toEqual(undefined)
       })
     })
 
     describe('failure scenario', () => {
-      const generator = fetchComicsList()
-      it('should call api', () => {
-        expect(generator.next().value).toEqual(call(request, COMICS_LIST_API, {
+      const it = sagaHelper(fetchComicsList())
+      const error = new Error()
+
+      it('should call api', (result) => {
+        expect(result).toEqual(call(request, COMICS_LIST_API, {
           method: 'GET',
           params: {
             limit: 10,
           },
         }))
-      })
-      it('should put failure action', () => {
-        const error = new Error()
-        expect(generator.throw(error).value).toEqual(put(actions.fetchComicsListFailure(error)))
+
+        return error
       })
 
-      it('should end', () => {
-        expect(generator.next().done).toBeTruthy()
+      it('should put failure action', (result) => {
+        expect(result).toEqual(put(actions.fetchComicsListFailure(error)))
       })
+
+      it('should end', (result) => {
+        expect(result).toEqual(undefined)
+      })
+    })
+  })
+
+  describe('comicsListPageSaga', () => {
+    const it = sagaHelper(comicsListPageSaga())
+
+    it('should watch for actions', (result) => {
+      expect(result).toBeTruthy()
     })
   })
 })
