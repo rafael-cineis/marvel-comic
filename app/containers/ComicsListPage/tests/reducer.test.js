@@ -10,6 +10,11 @@ describe('comicsListPageReducer', () => {
         result: [],
         error: null,
         isLoading: false,
+        paginationOptions: {
+          total: 0,
+          offset: 0,
+          count: 0,
+        },
       },
     }
   })
@@ -34,11 +39,19 @@ describe('comicsListPageReducer', () => {
         result: [1, 2],
         isLoading: false,
         error: null,
+        paginationOptions: {
+          total: 100,
+          offset: 0,
+          count: 10,
+        },
       },
     }
     expect(comicsListPageReducer(state, actions.fetchComicsListSuccess({
       data: {
         results: [1, 2],
+        total: 100,
+        offset: 0,
+        count: 10,
       },
     }))).toEqual(expectedResult)
   })

@@ -29,6 +29,11 @@ const StyledButton = styled.button`
   &:active {
     transform: scale(0.99);
   }
+
+  &:disabled {
+    background: #a3a3a3;
+    cursor: not-allowed;
+  }
 `
 
 function Button(props) {
@@ -37,6 +42,7 @@ function Button(props) {
       type="button"
       id={props.id}
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.children}
     </StyledButton>
@@ -47,6 +53,7 @@ Button.propTypes = {
   children: PropTypes.node.isRequired,
   id: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 }
 
 export default Button

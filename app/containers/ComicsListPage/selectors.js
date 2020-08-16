@@ -23,3 +23,8 @@ export const makeSelectComicDetailsFromList = id => createSelector(
   makeSelectComicsListResult,
   comicsList => comicsList.find(comic => comic.id === parseInt(id, 10)) || {}
 )
+
+export const makeSelectComicsListPaginationOptions = createSelector(
+  selectComicsListState,
+  comicsList => comicsList.paginationOptions
+)

@@ -3,6 +3,7 @@ import {
   makeSelectComicsListResult,
   makeSelectComicsListIsLoading,
   makeSelectComicDetailsFromList,
+  makeSelectComicsListPaginationOptions,
 } from '../selectors'
 import { initialState } from '../reducer'
 
@@ -18,6 +19,11 @@ describe('ComicsListPage selectors', () => {
       }],
       isLoading: true,
       error: null,
+      paginationOptions: {
+        total: 100,
+        offset: 0,
+        count: 10,
+      },
     },
   }
   const mockedState = { comicsListPage }
@@ -49,5 +55,13 @@ describe('ComicsListPage selectors', () => {
 
   it('should return an empty object if there is no comic with the provided id', () => {
     expect(makeSelectComicDetailsFromList(3)(mockedState)).toEqual({})
+  })
+
+  it('should select the paginationOptiosn from the comicsList', () => {
+    expect(makeSelectComicsListPaginationOptions(mockedState)).toEqual({
+      total: 100,
+      offset: 0,
+      count: 10,
+    })
   })
 })

@@ -27,6 +27,10 @@ const GlobalStyle = createGlobalStyle`
   label {
     line-height: 1.5em;
   }
+
+  .alignCenter {
+    text-align: center;
+  }
 `
 
 export default GlobalStyle

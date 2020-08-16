@@ -18,11 +18,15 @@ describe('comicsListPageSaga Saga', () => {
       const it = sagaHelper(fetchComicsList())
       const response = { response: 'response' }
 
+      // Skip select call
+      it('should select the options', () => ({ offset: 10, count: 10 }))
+
       it('should call api', (result) => {
         expect(result).toEqual(call(request, COMICS_LIST_API, {
           method: 'GET',
           params: {
             limit: 10,
+            offset: 20,
           },
         }))
         return response
@@ -41,11 +45,15 @@ describe('comicsListPageSaga Saga', () => {
       const it = sagaHelper(fetchComicsList())
       const error = new Error()
 
+      // Skip select call
+      it('should select the options', () => ({ offset: 10, count: 10 }))
+
       it('should call api', (result) => {
         expect(result).toEqual(call(request, COMICS_LIST_API, {
           method: 'GET',
           params: {
             limit: 10,
+            offset: 20,
           },
         }))
 

@@ -14,6 +14,11 @@ describe('<ComicsListPage />', () => {
     comicsList: [],
     isLoading: false,
     fetchComicsList: () => {},
+    options: {
+      count: 0,
+      total: 0,
+      offset: 0,
+    },
   }
 
   const shallowRender = (localProps = props) => shallow(<ComicsListPage {...localProps} />)
@@ -44,5 +49,17 @@ describe('<ComicsListPage />', () => {
     const renderedComponent = shallowRender(localProps)
     expect(renderedComponent).toBeTruthy()
     expect(renderedComponent.find('ComicCard').length).toEqual(2)
+  })
+
+  it('should render a loader with mini prop if isLoading is true and comicsList has content', () => {
+    const localProps = {
+      ...props,
+      comicsList: [{ title: 'Title 1' }],
+      isLoading: true,
+    }
+    const renderedComponent = shallowRender(localProps)
+    expect(renderedComponent.find('Loader').length).toEqual(1)
+    expect(renderedComponent.find('Loader').at(0).props().mini).toEqual(true)
+    expect(renderedComponent.find('Button').length).toEqual(0)
   })
 })
