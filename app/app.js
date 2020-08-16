@@ -16,6 +16,8 @@ import { ConnectedRouter } from 'connected-react-router'
 import FontFaceObserver from 'fontfaceobserver'
 import history from 'utils/history'
 import 'sanitize.css/sanitize.css'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
 // Import root app
 import App from 'containers/App'
@@ -42,6 +44,9 @@ const poppinsObserver = new FontFaceObserver('Poppins', {})
 poppinsObserver.load().then(() => {
   document.body.classList.add('fontLoaded')
 })
+
+// Add library with font awesome icons
+library.add(fas)
 
 // Create redux store with history
 const initialState = {}
