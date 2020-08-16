@@ -2,6 +2,7 @@ import {
   selectComicDetailsPageDomain,
   makeSelectComicDetailsResult,
   makeSelectComicDetailsIsLoading,
+  makeSelectComicDetailsError,
 } from '../selectors'
 import { initialState } from '../reducer'
 
@@ -12,7 +13,7 @@ describe('ComicDetailsPage selectors', () => {
         title: 'Comic Title',
       },
       isLoading: true,
-      error: null,
+      error: 'error',
     },
   }
   const mockedState = { comicDetailsPage }
@@ -27,5 +28,9 @@ describe('ComicDetailsPage selectors', () => {
 
   it('should select comic details isLoading state', () => {
     expect(makeSelectComicDetailsIsLoading(mockedState)).toEqual(true)
+  })
+
+  it('should select comic details error state', () => {
+    expect(makeSelectComicDetailsError(mockedState)).toEqual('error')
   })
 })

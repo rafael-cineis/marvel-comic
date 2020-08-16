@@ -17,3 +17,8 @@ export const makeSelectComicDetailsIsLoading = createSelector(
   selectComicDetailsState,
   comicDetails => comicDetails.isLoading
 )
+
+export const makeSelectComicDetailsError = createSelector(
+  selectComicDetailsState,
+  comicDetails => comicDetails.error
+)

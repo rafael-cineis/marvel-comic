@@ -35,4 +35,15 @@ describe('<ComicDetailsPage />', () => {
     const renderedComponent = shallowRender(localProps)
     expect(renderedComponent.find('Loader').length).toEqual(1)
   })
+
+  it('should render correctly with error prop', () => {
+    const localProps = {
+      ...props,
+      error: { data: 'error' },
+    }
+    const renderedComponent = shallowRender(localProps)
+    expect(renderedComponent).toBeTruthy()
+    // not found and link back messages
+    expect(renderedComponent.find('FormattedMessage').length).toEqual(2)
+  })
 })
