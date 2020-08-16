@@ -11,6 +11,6 @@ export const scope = 'app.components.Footer'
 export default defineMessages({
   dataProvidedByMarvelCopyright: {
     id: `${scope}.dataProvidedByMarvelCopyright`,
-    defaultMessage: 'Data provided by Marvel. © 2014 Marvel',
+    defaultMessage: 'Data provided by Marvel. © 2020 Marvel',
   },
 })

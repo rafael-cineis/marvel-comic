@@ -10,6 +10,7 @@ import styled, { css } from 'styled-components'
 const MainContent = css`
   max-width: 1240px;
   margin: 16px auto;
+  padding: 0 8px;
 `
 
 const ContentWrapper = styled.div`

@@ -12,6 +12,7 @@ import { compose } from 'redux'
 
 import { useInjectSaga } from 'utils/injectSaga'
 import { useInjectReducer } from 'utils/injectReducer'
+import Loader from 'components/Loader'
 
 import {
   makeSelectComicDetailsResult,
@@ -20,12 +21,17 @@ import {
 import { fetchComicDetails } from './actions'
 import reducer from './reducer'
 import saga from './saga'
+import ComicDetails from './ComicDetails'
 
 export function ComicDetailsPage(props) {
   useInjectReducer({ key: 'comicDetailsPage', reducer })
   useInjectSaga({ key: 'comicDetailsPage', saga })
 
-  const { comicDetails, match } = props
+  const {
+    comicDetails,
+    isLoading,
+    match,
+  } = props
 
   useEffect(() => {
     const { params: { id } } = match
@@ -33,17 +39,14 @@ export function ComicDetailsPage(props) {
     props.fetchComicDetails(id)
   }, [])
 
-  return (
-    <div>
-      {comicDetails.title}
-    </div>
-  )
+  return isLoading ? <Loader /> : <ComicDetails comic={comicDetails} />
 }
 
 ComicDetailsPage.propTypes = {
   match: PropTypes.object.isRequired,
   fetchComicDetails: PropTypes.func.isRequired,
   comicDetails: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }
 
 /* istanbul ignore next */

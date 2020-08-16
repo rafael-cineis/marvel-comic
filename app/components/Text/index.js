@@ -35,6 +35,10 @@ export const UppercaseText = css`
   text-transform: uppercase;
 `
 
+export const UnavailableText = css`
+  color: #8e8e8e;
+`
+
 const Text = styled.p`
   margin: 0;
 
@@ -48,6 +52,7 @@ const Text = styled.p`
   ${props => props.medium && MediumText}
   ${props => props.small && SmallText}
   ${props => props.uppercase && UppercaseText}
+  ${props => props.unavailableInfo && UnavailableText}
 `
 
 export default Text

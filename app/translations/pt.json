@@ -1,4 +1,9 @@
 {
   "app.components.Footer.dataProvidedByMarvelCopyright": "Data provided by Marvel. © 2014 Marvel",
+  "app.components.TextWithLabel.informationNotAvailable": "Informação não disponível",
+  "app.containers.ComicDetailsPage.characters": "Personagens:",
+  "app.containers.ComicDetailsPage.checkMoreDetailsAtMarvel": "Veja mais detalhes na página oficial da Marvel",
+  "app.containers.ComicDetailsPage.noDescriptionAvailable": "Descrição não disponível",
+  "app.containers.ComicDetailsPage.publishedDate": "Data de Publicação:",
   "app.containers.NotFoundPage.pageNotFound": "Página não foi encontrada!"
 }
